@@ -136,7 +136,7 @@ def main():
         from langchain_community.document_loaders import UnstructuredHTMLLoader
         
         # Load an HTML document
-        html_path = "../08-RAG-document-loader/sample_docs/sample_page.html"
+        html_path = "../utils/docs/sample_page.html"
         
         if os.path.exists(html_path):
             print(f"  Loading HTML document: {html_path}")

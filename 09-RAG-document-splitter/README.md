@@ -10,7 +10,23 @@ Document splitters are essential tools that:
 - **Handle different formats** with intelligent splitting strategies
 - **Enable efficient retrieval** by creating appropriately-sized chunks
 
-Document splitters are the second step in building RAG applications - after loading documents, you need to split them into chunks that fit within model context limits and can be efficiently retrieved.
+Document splitters are the **second step** in building RAG applications - after loading documents, you need to split them into chunks that fit within model context limits and can be efficiently retrieved.
+
+![RAG Development Steps](../utils/media/rag_steps.png)
+
+### About Document Splitting
+
+**Document splitting** splits the loaded document into smaller parts, which are also called **chunks**.
+
+- **Chunks are units of information** that we can index and process individually
+- **Chunking is particularly useful** for breaking up long documents so that they fit within an LLM's context window
+- **One naive splitting option** would be to separate the document by-line
+  - This would be simple to implement, but because sentences are often split over multiple lines
+  - And because those lines are processed separately, key context might be lost
+- **To counteract lost context during chunk splitting, a chunk overlap is often implemented**
+  - If a model shows signs of losing context and misunderstanding information when answering from external sources, we may need to increase this chunk overlap
+- **There isn't one document splitting strategy that works for all situations**. We should experiment with multiple methods, and see which one strikes the right balance between retaining context and managing chunk size
+- **Optimizing this document splitting is an active area of research**, so keep an eye out for new developments!
 
 ## Concepts Covered
 
@@ -226,6 +242,10 @@ splitter = CharacterTextSplitter(
 chunks = splitter.split_text(text)
 ```
 
+**How it works:**
+- This method splits based on the separator first, then evaluates `chunk_size` and `chunk_overlap` to check if it's satisfied
+- It may not always succeed getting the chunk size accurate as it splits on defined separator
+
 ### RecursiveCharacterTextSplitter
 
 Intelligent splitting with multiple separators:
@@ -239,6 +259,12 @@ splitter = RecursiveCharacterTextSplitter(
 )
 chunks = splitter.split_text(text)
 ```
+
+**How it works:**
+- Takes a list of separators to split on
+- Works through the list from left to right, splitting the document using each separator in turn
+- Sees if these chunks can be combined while remaining under `chunk_size`
+- Basically tries different techniques until it finds the most suitable
 
 The splitter tries separators in order:
 1. First tries `"\n\n"` (paragraph breaks)

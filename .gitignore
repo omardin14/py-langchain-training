@@ -1,3 +1,6 @@
+# TO-DO List
+to-do.md
+
 # Environment variables
 .env
 .env.local
@@ -41,4 +44,5 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
 

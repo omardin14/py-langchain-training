@@ -69,3 +69,4 @@ else:
 print(f"\nQuestion: Explain {concept} in simple terms.")
 print(f"Answer: {result}\n")
 
+

@@ -12,7 +12,7 @@ This is the complete solution for the document loader challenge.
 from langchain_community.document_loaders import PyPDFLoader
 
 # Step 2: Create a loader instance for a PDF file
-file_path = "sample_docs/example.pdf"
+file_path = "../utils/docs/example.pdf"
 loader = PyPDFLoader(file_path)
 
 # Step 3: Load the document

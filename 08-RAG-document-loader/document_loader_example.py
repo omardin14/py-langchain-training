@@ -41,7 +41,7 @@ def main():
         
         # Create a document loader for a PDF file
         # Note: You would replace this with an actual PDF file path
-        pdf_path = "sample_docs/sample_document.pdf"
+        pdf_path = "../utils/docs/sample_document.pdf"
         
         print(f"  Creating loader for: {pdf_path}")
         print("  (In a real application, you would provide an actual PDF file path)\n")
@@ -83,7 +83,7 @@ def main():
         from langchain_community.document_loaders.csv_loader import CSVLoader
         
         # Create a document loader for a CSV file
-        csv_path = "sample_docs/sample_data.csv"
+        csv_path = "../utils/docs/sample_data.csv"
         
         print(f"  Creating loader for: {csv_path}")
         print("  (In a real application, you would provide an actual CSV file path)\n")
@@ -125,7 +125,7 @@ def main():
         from langchain_community.document_loaders import UnstructuredHTMLLoader
         
         # Create a document loader for an HTML file
-        html_path = "sample_docs/sample_page.html"
+        html_path = "../utils/docs/sample_page.html"
         
         print(f"  Creating loader for: {html_path}")
         print("  (In a real application, you would provide an actual HTML file path)\n")
@@ -168,7 +168,7 @@ def main():
         from langchain_community.document_loaders import TextLoader
         
         # Create a document loader for a text file
-        text_path = "sample_docs/sample_text.txt"
+        text_path = "../utils/docs/sample_text.txt"
         
         print(f"  Creating loader for: {text_path}")
         print("  (In a real application, you would provide an actual text file path)\n")

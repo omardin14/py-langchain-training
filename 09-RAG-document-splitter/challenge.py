@@ -14,7 +14,7 @@ This challenge tests your understanding of:
 from langchain_community.document_loaders import TextLoader
 
 # Load a document first
-loader = TextLoader("../08-RAG-document-loader/sample_docs/sample_text.txt")
+loader = TextLoader("../utils/docs/sample_text.txt")
 documents = loader.load()
 
 # ============================================================================

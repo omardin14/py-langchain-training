@@ -2,6 +2,26 @@
 
 This module introduces **Document Loaders** - tools that extract text content from various file formats for use in RAG (Retrieval-Augmented Generation) applications.
 
+## What is RAG?
+
+**RAG (Retrieval-Augmented Generation)** provides extra context for more informed LLM responses. This method is commonly used to provide more relevant answers to users based on company's external proprietary data.
+
+### Why RAG?
+
+- **Pre-trained language models don't have access to external data sources** - their understanding comes purely from their training data
+- **If we require our model to have knowledge that goes beyond its training data**, which could be company data or knowledge of more recent world events, we need a way of integrating that data
+- **In RAG, a user query is embedded and used to retrieve the most relevant documents from the database**. Then, these documents are added to the model's prompt so that the model has extra context to inform its response
+
+### The 3 Primary Steps for RAG Development
+
+![RAG Development Steps](../utils/media/rag_steps.png)
+
+1. **Loading the documents** into LangChain with document loaders (this module)
+2. **Splitting the documents** into chunks (module 09)
+3. **Encoding and storing the chunks** for retrieval, which could utilize a vector database (module 010)
+
+![RAG Development Overview](../utils/media/rag_development.png)
+
 ## What are Document Loaders?
 
 Document loaders are specialized tools that:
@@ -10,7 +30,14 @@ Document loaders are specialized tools that:
 - **Preserve metadata** about the source file (page numbers, file paths, etc.)
 - **Enable RAG** by making document content searchable and retrievable
 
-Document loaders are the first step in building RAG applications - they convert your files into a format that can be processed, searched, and used for generation.
+Document loaders are the **first step** in building RAG applications - they convert your files into a format that can be processed, searched, and used for generation.
+
+### About Document Loaders
+
+- **Classes designed to load and configure documents** for integration with AI systems
+- **LangChain provides document loader classes** for common file types such as CSV and PDFs
+- **There are also additional loaders provided by 3rd parties** for managing unique document formats, including Amazon S3 files, Jupyter notebooks, audio transcripts, and many more
+- **LangChain has excellent documentation** on all of its document loaders, and there's a lot of overlap in syntax: https://python.langchain.com/docs/integrations/document_loaders
 
 ## Concepts Covered
 
