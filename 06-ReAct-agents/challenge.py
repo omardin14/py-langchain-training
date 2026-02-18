@@ -12,6 +12,7 @@ This challenge tests your understanding of:
 """
 
 import os
+import sys
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -32,8 +33,18 @@ llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 
 # Step 1: Import and load tools
 # Replace XXXX___ with the correct import (load_tools)
-from langchain_community.agent_toolkits.load_tools import XXXX___
-tools = XXXX___(["llm-math"], llm=llm)
+# Note: Python 3.14+ has compatibility issues with llm-math; use custom tool as fallback
+if sys.version_info >= (3, 14):
+    from langchain_core.tools import XXXX___
+    @tool
+    def calculator(expression: str) -> str:
+        """Perform mathematical calculations. Input should be a valid math expression like '25 * 8'."""
+        import numexpr
+        return str(numexpr.evaluate(expression))
+    tools = [calculator]
+else:
+    from langchain_community.agent_toolkits.load_tools import load_tools
+    tools = load_tools(["llm-math"], llm=llm)
 
 # Step 2: Import and create the ReAct agent
 # Replace XXXX___ with the correct import (create_react_agent)
