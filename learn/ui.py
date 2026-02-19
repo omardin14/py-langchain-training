@@ -24,12 +24,11 @@ def render_page(page, current, total, module_title):
     """Render a single lesson page inside a styled panel."""
     clear()
     content = Markdown(page["content"])
-    subtitle = f"Page {current}/{total}"
     console.print(
         Panel(
             content,
-            title=f"[bold]{module_title}[/bold]",
-            subtitle=subtitle,
+            title=f"[bold]{module_title}[/bold] — Page {current}/{total}",
+            subtitle=f"Page {current}/{total}",
             box=box.ROUNDED,
             padding=(1, 2),
         )
@@ -221,6 +220,50 @@ def _validate_challenge(challenge, module_dir):
     wait_for_enter()
 
 
+def _reset_challenge(challenge, module_dir):
+    """Reset challenge file back to XXXX___ placeholders using git."""
+    project_root = _get_project_root()
+    challenge_rel = os.path.join(module_dir, challenge["file"])
+    challenge_path = os.path.join(project_root, challenge_rel)
+
+    if not os.path.isfile(challenge_path):
+        console.print(
+            f"\n[bold red]  Error: {challenge_rel} not found![/bold red]\n"
+        )
+        wait_for_enter()
+        return
+
+    # Check if already has placeholders
+    if _check_placeholders(challenge_path):
+        console.print(
+            "\n[dim]  Challenge already has XXXX___ placeholders. Nothing to reset.[/dim]"
+        )
+        wait_for_enter()
+        return
+
+    try:
+        result = subprocess.run(
+            ["git", "checkout", "--", challenge_rel],
+            cwd=project_root,
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            console.print(
+                "\n[bold green]  Challenge reset to original placeholders.[/bold green]"
+            )
+        else:
+            console.print(
+                f"\n[bold red]  Reset failed: {result.stderr.strip()}[/bold red]"
+            )
+    except FileNotFoundError:
+        console.print(
+            "\n[bold red]  Error: git not found. Cannot reset.[/bold red]"
+        )
+
+    wait_for_enter()
+
+
 def show_challenge(challenge, module_title, module_dir):
     """Show challenge instructions with validate option."""
     while True:
@@ -263,6 +306,7 @@ def show_challenge(challenge, module_title, module_dir):
             message="Challenge:",
             choices=[
                 Choice(value="validate", name="Validate Solution"),
+                Choice(value="reset", name="Reset Challenge"),
                 Separator(),
                 Choice(value="back", name="Back to Menu"),
             ],
@@ -273,6 +317,8 @@ def show_challenge(challenge, module_title, module_dir):
             break
         elif action == "validate":
             _validate_challenge(challenge, module_dir)
+        elif action == "reset":
+            _reset_challenge(challenge, module_dir)
 
 
 def run_examples(examples, module_title, module_dir):
