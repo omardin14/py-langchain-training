@@ -422,11 +422,10 @@ def module_picker(modules):
     choices = []
     for m in modules:
         choices.append(Choice(value=m["id"], name=f"{m['id']} - {m['title']}"))
-    choices.append(Separator())
     choices.append(Choice(value=None, name="Quit"))
 
-    selected = inquirer.select(
-        message="Select a module:",
+    selected = inquirer.fuzzy(
+        message="Select a module (type to filter):",
         choices=choices,
         pointer=">>>",
     ).execute()
