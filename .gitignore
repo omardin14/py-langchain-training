@@ -45,6 +45,5 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Challenge Attempts
-
-
+# Vector databases
+chroma_db/

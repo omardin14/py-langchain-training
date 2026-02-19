@@ -98,10 +98,13 @@ list:
 	@echo "Usage: make run M=01  (or any module number/name)"
 	@echo ""
 
+# Prefer Python 3.13/3.12 over 3.14 (pydantic v1 / chromadb incompatibility with 3.14)
+PYTHON3 := $(shell command -v python3.13 2>/dev/null || command -v python3.12 2>/dev/null || echo python3)
+
 learn:
 	@if [ ! -d venv ]; then \
-		echo "Creating virtual environment..."; \
-		python3 -m venv venv; \
+		echo "Creating virtual environment with $(PYTHON3)..."; \
+		$(PYTHON3) -m venv venv; \
 	fi
 	@venv/bin/pip install -q -r requirements.txt 2>/dev/null
 	@venv/bin/python learn.py
