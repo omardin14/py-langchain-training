@@ -1,4 +1,4 @@
-"""Interactive LangChain training - launch with: python learn.py"""
+"""Interactive AI training platform - launch with: python learn.py"""
 
 from learn.app import main
 

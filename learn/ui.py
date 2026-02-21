@@ -626,14 +626,46 @@ def run_examples(examples, module_title, module_dir):
         wait_for_enter()
 
 
-def module_picker(modules):
-    """Show the main module selection menu. Returns a module dict or None to quit."""
+def course_picker(courses):
+    """Show the course selection menu. Returns a course ID or None to quit."""
     clear()
     console.print(
         Panel(
-            "[bold]Welcome to the LangChain Training Course![/bold]\n\n"
+            "[bold]Welcome to the AI Training Platform![/bold]\n\n"
+            "Select a course to start learning.",
+            title="[bold]AI Training[/bold]",
+            box=box.ROUNDED,
+            padding=(1, 2),
+        )
+    )
+    console.print()
+
+    choices = []
+    for c in courses:
+        if c["status"] == "available":
+            choices.append(Choice(value=c["id"], name=f"{c['title']}"))
+        else:
+            choices.append(Choice(value=c["id"], name=f"{c['title']} (coming soon)"))
+    choices.append(Separator())
+    choices.append(Choice(value=None, name="Quit"))
+
+    selected = inquirer.select(
+        message="Select a course:",
+        choices=choices,
+        pointer=">>>",
+    ).execute()
+
+    return selected
+
+
+def module_picker(modules, course_title):
+    """Show the module selection menu. Returns a module ID or None to go back."""
+    clear()
+    console.print(
+        Panel(
+            f"[bold]{course_title}[/bold]\n\n"
             "Select a module to start learning.",
-            title="[bold]LangChain Training[/bold]",
+            title="[bold]AI Training[/bold]",
             box=box.ROUNDED,
             padding=(1, 2),
         )
@@ -643,7 +675,7 @@ def module_picker(modules):
     choices = []
     for m in modules:
         choices.append(Choice(value=m["id"], name=f"{m['id']} - {m['title']}"))
-    choices.append(Choice(value=None, name="Quit"))
+    choices.append(Choice(value=None, name="Back to Courses"))
 
     selected = inquirer.fuzzy(
         message="Select a module (type to filter):",
@@ -799,7 +831,7 @@ def module_menu(module_title, setup_config=None):
         )
 
     choices.append(Separator())
-    choices.append(Choice(value="back", name="Back to Modules"))
+    choices.append(Choice(value="back", name="Back"))
 
     action = inquirer.select(
         message=f"{module_title}:",

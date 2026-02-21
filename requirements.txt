@@ -1,8 +1,8 @@
 # ============================================================
-# LangChain Training - Consolidated Dependencies
+# AI Training Platform - Consolidated Dependencies
 # ============================================================
-# Shared requirements for all 19 modules.
-# Install from any module folder: pip install -r ../requirements.txt
+# Shared requirements for all courses and modules.
+# Install from any module folder: pip install -r <root>/requirements.txt
 
 # --- Core ---
 langchain>=0.1.0

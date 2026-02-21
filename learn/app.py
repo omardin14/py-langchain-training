@@ -2,10 +2,14 @@
 
 import sys
 
-from learn.content import MODULES, get_module, load_pages
+from rich.panel import Panel
+from rich import box
+
+from learn.content import COURSES, get_course, get_module, load_pages
 from learn.ui import (
     clear,
     console,
+    course_picker,
     module_menu,
     module_picker,
     run_examples,
@@ -18,74 +22,102 @@ from learn.ui import (
 
 
 def main():
-    """Entry point: module picker -> module menu -> lesson/quiz/challenge."""
+    """Entry point: course picker -> module picker -> module menu -> actions."""
     try:
         while True:
-            selected_id = module_picker(MODULES)
+            # Course selection
+            course_id = course_picker(COURSES)
 
-            if selected_id is None:
+            if course_id is None:
                 clear()
                 console.print("[bold]Thanks for learning! Goodbye.[/bold]\n")
                 sys.exit(0)
 
-            module = get_module(selected_id)
-
-            if module is None:
-                clear()
-                console.print(
-                    f"\n[bold yellow]Module {selected_id} not found.[/bold yellow]\n"
-                )
-                console.input("[dim]Press Enter to go back...[/dim]")
+            course = get_course(course_id)
+            if course is None:
                 continue
 
-            setup_config = module.get("setup")
-
-            # Show one-time setup notice when entering a module with dependencies
-            show_setup_notice(setup_config)
-
-            # Module menu loop
-            while True:
-                action = module_menu(module["title"], setup_config=setup_config)
-
-                if action == "back":
-                    break
-                elif action == "lesson":
-                    pages = load_pages(module)
-                    if not pages:
-                        clear()
-                        console.print(
-                            "\n[bold yellow]No lesson markers found in this "
-                            "module's README.md yet.[/bold yellow]\n"
-                        )
-                        console.input("[dim]Press Enter to go back...[/dim]")
-                    else:
-                        run_lesson(pages, module["title"])
-                elif action == "quiz":
-                    run_quiz(module["quiz"], module["title"])
-                elif action == "challenge":
-                    show_challenge(
-                        module["challenge"],
-                        module["title"],
-                        module["directory"],
-                        setup_config=setup_config,
+            if course["status"] == "coming_soon":
+                clear()
+                console.print(
+                    Panel(
+                        f"[bold]{course['title']}[/bold]\n\n"
+                        f"{course['description']}\n\n"
+                        "This course is currently in development. "
+                        "Check back soon!",
+                        title="[bold yellow]Coming Soon[/bold yellow]",
+                        box=box.ROUNDED,
+                        padding=(1, 2),
                     )
-                elif action == "examples":
-                    examples = module.get("examples", [])
-                    if not examples:
-                        clear()
-                        console.print(
-                            "\n[bold yellow]No example scripts configured "
-                            "for this module.[/bold yellow]\n"
-                        )
-                        console.input("[dim]Press Enter to go back...[/dim]")
-                    else:
-                        run_examples(
-                            examples,
+                )
+                console.input("\n[dim]Press Enter to go back...[/dim]")
+                continue
+
+            # Module selection loop (within a course)
+            while True:
+                selected_id = module_picker(course["modules"], course["title"])
+
+                if selected_id is None:
+                    break  # back to course picker
+
+                module = get_module(course, selected_id)
+
+                if module is None:
+                    clear()
+                    console.print(
+                        f"\n[bold yellow]Module {selected_id} not found.[/bold yellow]\n"
+                    )
+                    console.input("[dim]Press Enter to go back...[/dim]")
+                    continue
+
+                setup_config = module.get("setup")
+
+                # Show one-time setup notice when entering a module with dependencies
+                show_setup_notice(setup_config)
+
+                # Module menu loop
+                while True:
+                    action = module_menu(module["title"], setup_config=setup_config)
+
+                    if action == "back":
+                        break
+                    elif action == "lesson":
+                        pages = load_pages(module)
+                        if not pages:
+                            clear()
+                            console.print(
+                                "\n[bold yellow]No lesson markers found in this "
+                                "module's README.md yet.[/bold yellow]\n"
+                            )
+                            console.input("[dim]Press Enter to go back...[/dim]")
+                        else:
+                            run_lesson(pages, module["title"])
+                    elif action == "quiz":
+                        run_quiz(module["quiz"], module["title"])
+                    elif action == "challenge":
+                        show_challenge(
+                            module["challenge"],
                             module["title"],
                             module["directory"],
+                            setup_config=setup_config,
                         )
-                elif action == "setup":
-                    run_setup(setup_config)
+                    elif action == "examples":
+                        examples = module.get("examples", [])
+                        if not examples:
+                            clear()
+                            console.print(
+                                "\n[bold yellow]No example scripts configured "
+                                "for this module.[/bold yellow]\n"
+                            )
+                            console.input("[dim]Press Enter to go back...[/dim]")
+                        else:
+                            run_examples(
+                                examples,
+                                module["title"],
+                                module["directory"],
+                            )
+                    elif action == "setup":
+                        run_setup(setup_config)
 
     except KeyboardInterrupt:
         clear()
