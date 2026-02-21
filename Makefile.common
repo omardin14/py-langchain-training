@@ -1,6 +1,10 @@
 # Shared variables and targets for all modules
 # Include from per-module Makefiles: include ../Makefile.common
 
+# ROOT_DIR points to the project root (where .env and requirements.txt live).
+# Course-level Makefile.common wrappers override this before including us.
+ROOT_DIR ?= ..
+
 # Prefer Python 3.13/3.12 over 3.14 (pydantic v1 / chromadb incompatibility with 3.14)
 PYTHON3 := $(shell command -v python3.13 2>/dev/null || command -v python3.12 2>/dev/null || echo python3)
 
@@ -14,11 +18,11 @@ EXTRA_CLEAN_DIRS ?=
 .PHONY: setup venv install clean
 
 setup:
-	@if [ ! -f ../.env ]; then \
+	@if [ ! -f $(ROOT_DIR)/.env ]; then \
 		echo "Creating .env file from template..."; \
-		cp ../.env.example ../.env; \
+		cp $(ROOT_DIR)/.env.example $(ROOT_DIR)/.env; \
 		echo "✓ .env file created at project root!"; \
-		echo "  Edit ../.env and add your API keys."; \
+		echo "  Edit $(ROOT_DIR)/.env and add your API keys."; \
 	else \
 		echo "✓ .env file already exists at project root."; \
 	fi
@@ -35,7 +39,7 @@ venv:
 install: venv
 	@echo "Installing dependencies..."
 	@$(PIP) install --upgrade pip
-	@$(PIP) install -r ../requirements.txt
+	@$(PIP) install -r $(ROOT_DIR)/requirements.txt
 	@echo "✓ Installation complete!"
 	@echo ""
 	@echo "Virtual environment is ready! All commands will use it automatically."

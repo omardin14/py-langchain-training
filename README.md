@@ -1,6 +1,6 @@
-# LangChain Training Course
+# AI Training Platform
 
-A hands-on, interactive training course for learning LangChain -- from basic model usage through RAG (Retrieval-Augmented Generation) and evaluation.
+A hands-on, interactive training platform for learning AI and LangChain -- with structured courses covering theory through practical implementation.
 
 ## Quick Start
 
@@ -13,11 +13,13 @@ make setup
 make learn
 ```
 
-That's it. `make learn` handles virtual environment creation, dependency installation, and launches the interactive terminal-based learning experience.
+That's it. `make learn` handles virtual environment creation, dependency installation, and launches the interactive terminal-based learning experience with a course picker.
 
-## What's Inside
+## Courses
 
-The course covers 15 modules, progressing from fundamentals to advanced RAG techniques:
+### Getting Started with LangChain (Available)
+
+19 modules progressing from fundamentals to advanced RAG and knowledge graphs:
 
 | # | Module | Topics |
 |---|--------|--------|
@@ -36,11 +38,24 @@ The course covers 15 modules, progressing from fundamentals to advanced RAG tech
 | 13 | Advanced Splitting | Token-based splitting, semantic chunking |
 | 14 | Advanced Retrieval | Dense vs sparse retrieval, BM25, TF-IDF |
 | 15 | RAG Evaluation | Faithfulness, context precision, RAGAS framework |
+| 16 | Knowledge Graphs | Graph documents, LLM-powered entity extraction |
+| 17 | Neo4j Graph Store | Neo4j database, Cypher queries, graph storage |
+| 18 | Graph RAG Chain | GraphCypherQAChain, natural language to Cypher |
+| 19 | Improving Graph RAG | Few-shot Cypher, fulltext search, advanced prompting |
+
+### AI Theory & Foundations (Coming Soon)
+
+Neural networks, transformers, embeddings, and LLM theory.
+
+### LangChain Agents & LangGraph (Coming Soon)
+
+Agent architectures, multi-agent systems, and LangGraph.
 
 ## Interactive Learning Tool
 
 `make learn` provides a terminal-based learning experience with:
 
+- **Course Picker** -- Select from available courses (or see what's coming soon)
 - **Lessons** -- Theory content rendered as styled markdown pages
 - **Quizzes** -- Multiple-choice questions with arrow-key selection and instant feedback
 - **Coding Challenges** -- Fill-in-the-blank exercises with inline validation
@@ -61,18 +76,24 @@ Navigate with arrow keys, no need to leave the tool.
 │   ├── app.py               # Main application loop
 │   ├── ui.py                # Rich + InquirerPy rendering
 │   ├── parser.py            # README.md lesson page parser
-│   └── content/             # Module configs (quiz questions, challenge hints)
-├── 01-langchain-models/     # Module directories
-│   ├── README.md            # Lesson content (source of truth)
-│   ├── Makefile             # Module-level make targets
-│   ├── openai_example.py    # Working code examples
-│   ├── challenge.py         # Coding challenge (fill in XXXX___)
-│   └── challenge_solution.py
-├── 02-prompt-templates/
-│   └── ...
-├── ...
+│   └── content/             # Course and module configs
+│       ├── courses.py       # Course registry
+│       └── langchain_fundamentals/  # LangChain course content package
+│           └── module_XX.py # Per-module quiz, challenge, example configs
+├── courses/
+│   └── langchain-fundamentals/
+│       ├── Makefile.common   # Course-level Makefile wrapper
+│       ├── 01-langchain-models/
+│       │   ├── README.md     # Lesson content (source of truth)
+│       │   ├── Makefile      # Module-level make targets
+│       │   ├── *_example.py  # Working code examples
+│       │   ├── challenge.py  # Coding challenge (fill in XXXX___)
+│       │   └── challenge_solution.py
+│       ├── 02-prompt-templates/
+│       │   └── ...
+│       └── ...
 └── utils/
-    └── docs/                # Sample documents for RAG modules
+    └── docs/                 # Sample documents for RAG modules
 ```
 
 ## Prerequisites

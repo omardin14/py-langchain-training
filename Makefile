@@ -1,5 +1,7 @@
 .PHONY: help run quiz challenge clean setup install list learn
 
+COURSE_DIR = courses/langchain-fundamentals
+
 MODULES = \
   01-langchain-models \
   02-prompt-templates \
@@ -15,7 +17,11 @@ MODULES = \
   12-RAG-python-markdown \
   13-advanced-splitting \
   14-advanced-retrieval \
-  15-rag-evaluation
+  15-rag-evaluation \
+  16-knowledge-graphs \
+  17-neo4j-graph-store \
+  18-graph-rag-chain \
+  19-improving-graph-rag
 
 NUM_MODULES := $(words $(MODULES))
 
@@ -29,10 +35,10 @@ endif
 
 help:
 ifdef M
-	@$(MAKE) --no-print-directory -C $(MODULE_DIR) help
+	@$(MAKE) --no-print-directory -C $(COURSE_DIR)/$(MODULE_DIR) help
 else
-	@echo "LangChain Training - Root Makefile"
-	@echo "=================================="
+	@echo "AI Training Platform - Root Makefile"
+	@echo "====================================="
 	@echo ""
 	@echo "Usage:"
 	@echo "  make learn            - Interactive learning tool (lessons, quizzes, challenges, examples)"
@@ -70,9 +76,9 @@ run quiz challenge clean install:
 			exit 1; \
 		fi; \
 		echo ""; \
-		$(MAKE) --no-print-directory -C "$$selected" $@; \
+		$(MAKE) --no-print-directory -C "$(COURSE_DIR)/$$selected" $@; \
 	else \
-		$(MAKE) --no-print-directory -C $(MODULE_DIR) $@; \
+		$(MAKE) --no-print-directory -C $(COURSE_DIR)/$(MODULE_DIR) $@; \
 	fi
 
 setup:
