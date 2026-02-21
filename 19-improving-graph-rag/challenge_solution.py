@@ -66,8 +66,12 @@ from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate
 
 examples = [
     {
-        "question": "How many technologies are in the graph?",
-        "query": "MATCH (t:Technology) RETURN count(DISTINCT t) AS total",
+        "question": "How many entities are in the graph?",
+        "query": "MATCH (n:__Entity__) RETURN count(n) AS total",
+    },
+    {
+        "question": "What types of entities exist and how many of each?",
+        "query": "MATCH (n:__Entity__) RETURN labels(n) AS types, count(n) AS count ORDER BY count DESC",
     },
 ]
 
@@ -98,7 +102,7 @@ chain_fewshot = GraphCypherQAChain.from_llm(
     allow_dangerous_requests=True
 )
 
-result = chain_fewshot.invoke({"query": "What technologies are in the graph?"})
+result = chain_fewshot.invoke({"query": "How many entities are in the graph?"})
 print(f"\nAnswer: {result['result']}")
 
 print("\nChallenge completed!")
