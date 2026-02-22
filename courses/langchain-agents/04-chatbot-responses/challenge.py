@@ -8,7 +8,7 @@ This challenge tests your understanding of:
 - Building and compiling a graph (recap)
 - Streaming responses with .stream()
 - Processing stream events to display agent output
-- Visualising the graph with .get_graph().draw_mermaid()
+- Visualising the graph with .get_graph().draw_mermaid() and .draw_mermaid_png()
 """
 
 import os
@@ -69,7 +69,7 @@ def stream_graph_updates(user_input):
     for event in graph.XXXX___({"messages": [("human", user_input)]}):
         # Replace XXXX___ with the correct method to get event values
         for value in event.XXXX___():
-            # Replace XXXX___ with the correct key to access the last message content
+            # Replace XXXX___ with the correct attribute to access the last message text
             print("Agent:", value["messages"][-1].XXXX___)
 
 
@@ -84,3 +84,10 @@ stream_graph_updates(question)
 print("\nGraph structure (Mermaid):")
 mermaid_text = graph.XXXX___().XXXX___()
 print(mermaid_text)
+
+# Visualise the graph as a PNG image
+# Replace XXXX___ with the correct method to render the graph as PNG
+png_data = graph.get_graph().XXXX___()
+with open("graph_diagram.png", "wb") as f:
+    f.write(png_data)
+print("\nGraph diagram saved to: graph_diagram.png")

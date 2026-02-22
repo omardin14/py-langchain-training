@@ -72,3 +72,9 @@ stream_graph_updates(question)
 print("\nGraph structure (Mermaid):")
 mermaid_text = graph.get_graph().draw_mermaid()
 print(mermaid_text)
+
+# Visualise the graph as a PNG image
+png_data = graph.get_graph().draw_mermaid_png()
+with open("graph_diagram.png", "wb") as f:
+    f.write(png_data)
+print("\nGraph diagram saved to: graph_diagram.png")

@@ -60,6 +60,7 @@ MODULE = {
             "The third XXXX___ should be the message attribute for text (content)",
             "The fourth XXXX___ should be the method to get the graph structure (get_graph)",
             "The fifth XXXX___ should be the method to generate Mermaid text (draw_mermaid)",
+            "The sixth XXXX___ should be the method to render as PNG (draw_mermaid_png)",
         ],
     },
 }
