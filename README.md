@@ -60,7 +60,9 @@ More modules coming soon.
 
 ### AI Theory & Foundations (Available)
 
-Machine learning, LLMs, alignment, prompt engineering, AI safety, and AI agents:
+Machine learning, LLMs, alignment, prompt engineering, AI safety, and AI agents.
+
+Based on: [The AI Sketchbook](https://medium.com/@omarnour_5895/the-ai-sketchbook-visual-notes-on-the-fundamentals-5f8bd3234bde) | [Inside the Brain of an Agent](https://medium.com/@omarnour_5895/inside-the-brain-of-an-agent-orchestration-tools-and-guardrails-39e67dc3ca76) | [Agentic Applications](https://medium.com/@omarnour_5895/agentic-applications-scaling-protocols-and-production-6da32c75a7f0)
 
 | # | Module | Topics |
 |---|--------|--------|
