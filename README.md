@@ -58,9 +58,26 @@ Agent architectures, custom tools, multi-agent systems, and LangGraph:
 
 More modules coming soon.
 
-### AI Theory & Foundations (Coming Soon)
+### AI Theory & Foundations (Available)
 
-Neural networks, transformers, embeddings, and LLM theory.
+Machine learning, LLMs, alignment, prompt engineering, AI safety, and AI agents:
+
+| # | Module | Topics |
+|---|--------|--------|
+| 01 | Machine Learning Fundamentals | Explicit programming vs ML, three-step learning loop, weights and biases, training data |
+| 02 | Large Language Models | Trinity of modern AI, next-word prediction, training at scale, generative vs analytical AI |
+| 03 | AI Alignment & Safety | RLHF, human evaluators, preference ranking, fine-tuning, safety boundaries |
+| 04 | From Tool to Teammate | Mindset shift, execution partner, thought partner, editor, infinite tutor |
+| 05 | Prompt Engineering | ARC framework (Ask, Requirements, Context), iteration, the flipped prompt |
+| 06 | AI Pitfalls & Risks | Sycophancy, hallucinations, bias, data privacy |
+| 07 | Introduction to AI Agents | Agent anatomy (brain & body), spectrum of agency (levels 0-4), agent vs chatbot |
+| 08 | Orchestration & Reasoning | Orchestration layer, Thought-Action-Observation cycle, ReAct framework, chain-of-thought |
+| 09 | Agent Tools & Multi-Agent Systems | APIs/extensions, functions, data stores, MCP, Manager and Decentralized patterns |
+| 10 | Guardrails & Best Practices | Input/tool/output guardrails, build vs buy, best practices for using and building agents |
+| 11 | Agentic Application Architecture | Four layers (interface, prompt, model, storage), three design principles, modularity |
+| 12 | Scaling & Failure Modes | Fragile evaluation, intent drift, sycophancy trap, latency, cost explosion, multi-agent patterns |
+| 13 | Agent Protocols: MCP & A2A | M x N problem, MCP architecture, three primitives, A2A workflow, agent cards |
+| 14 | Production & Operations | Red teaming, shadow deployments, event-driven architecture, graceful failure, least privilege |
 
 ## Interactive Learning Tool
 

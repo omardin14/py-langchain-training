@@ -77,7 +77,12 @@ def main():
 
                 # Module menu loop
                 while True:
-                    action = module_menu(module["title"], setup_config=setup_config)
+                    action = module_menu(
+                        module["title"],
+                        setup_config=setup_config,
+                        has_challenge="challenge" in module,
+                        has_examples=bool(module.get("examples")),
+                    )
 
                     if action == "back":
                         break

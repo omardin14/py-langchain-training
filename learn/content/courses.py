@@ -2,14 +2,15 @@
 
 from learn.content.langchain_fundamentals import LANGCHAIN_MODULES
 from learn.content.langchain_agents import AGENTS_MODULES
+from learn.content.ai_theory import AI_THEORY_MODULES
 
 COURSES = [
     {
         "id": "ai-theory",
         "title": "AI Theory & Foundations",
-        "description": "Neural networks, transformers, embeddings, and LLM theory.",
-        "modules": [],
-        "status": "coming_soon",
+        "description": "Machine learning, LLMs, alignment, prompt engineering, and AI safety.",
+        "modules": AI_THEORY_MODULES,
+        "status": "available",
     },
     {
         "id": "langchain-fundamentals",
