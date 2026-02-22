@@ -811,16 +811,18 @@ def run_setup(setup_config):
     wait_for_enter()
 
 
-def module_menu(module_title, setup_config=None):
+def module_menu(module_title, setup_config=None, has_challenge=True, has_examples=True):
     """Show the menu for a selected module. Returns the chosen action."""
     console.print()
 
     choices = [
         Choice(value="lesson", name="Start Lesson"),
         Choice(value="quiz", name="Take Quiz"),
-        Choice(value="challenge", name="Coding Challenge"),
-        Choice(value="examples", name="Run Examples"),
     ]
+    if has_challenge:
+        choices.append(Choice(value="challenge", name="Coding Challenge"))
+    if has_examples:
+        choices.append(Choice(value="examples", name="Run Examples"))
 
     if setup_config:
         name = setup_config["name"]
