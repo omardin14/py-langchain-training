@@ -3,6 +3,7 @@
 from learn.content.langchain_agents.module_01 import MODULE as MODULE_01
 from learn.content.langchain_agents.module_02 import MODULE as MODULE_02
 from learn.content.langchain_agents.module_03 import MODULE as MODULE_03
+from learn.content.langchain_agents.module_04 import MODULE as MODULE_04
 
 _COURSE_DIR = "courses/langchain-agents"
 
@@ -11,6 +12,7 @@ AGENTS_MODULES = [
     MODULE_01,
     MODULE_02,
     MODULE_03,
+    MODULE_04,
 ]
 
 # Prefix each module's directory with the course path.
